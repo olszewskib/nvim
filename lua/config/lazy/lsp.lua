@@ -55,6 +55,28 @@ return {
             }
         })
 
+        -- Dart setup
+        local lspconfig = require("lspconfig")
+        lspconfig.dartls.setup {
+            capabilities = capabilities,
+            cmd = { "dart", "language-server", "--protocol=lsp" },
+            filetypes = { "dart" },
+            init_options = {
+                closingLabels = true,
+                flutterOutline = true,
+                onlyAnalyzeProjectsWithOpenFiles = true,
+                outline = true,
+                suggestFromUnimportedLibraries = true
+            },
+            root_dir = lspconfig.util.root_pattern("pubspec.yaml"),
+            settings = {
+                dart = {
+                    completeFunctionCalls = true,
+                    showTodos = true
+                }
+            }
+        }
+
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
         cmp.setup({
